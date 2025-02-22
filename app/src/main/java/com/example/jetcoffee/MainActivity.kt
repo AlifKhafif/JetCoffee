@@ -2,13 +2,16 @@ package com.example.jetcoffee
 
 import CategoryItem
 import Search
+import SectionText
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,6 +21,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetcoffee.model.dummyCategory
@@ -39,6 +44,8 @@ class MainActivity : ComponentActivity() {
 fun JetCoffeeApp() {
     Column {
         Banner()
+        SectionText(stringResource(R.string.section_category))
+        CategoryRow()
     }
 }
 
@@ -62,7 +69,9 @@ fun CategoryRow(
     modifier: Modifier = Modifier
 ) {
     LazyRow(
-        modifier = modifier.padding(16.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),//berfungsi untuk mengatur jarak antara item di dalam list.
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        modifier = modifier,
     ) {
         items(dummyCategory, key = { it.textCategory }) { category ->
             CategoryItem(category)
@@ -70,18 +79,11 @@ fun CategoryRow(
     }
 }
 
-@Composable
-@Preview(showBackground = true)
-fun CategoryRowPreview() {
-    JetCoffeeTheme {
-        CategoryRow()
-    }
-}
 
-@Preview(showBackground = true)
 @Composable
-fun BannerPreview() {
+@Preview(showBackground = true, device = Devices.PIXEL_4)
+fun JetCoffeeAppPreview() {
     JetCoffeeTheme {
-        Banner()
+        JetCoffeeApp()
     }
 }
